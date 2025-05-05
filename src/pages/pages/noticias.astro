@@ -21,9 +21,7 @@ subtitle={page.yoast_head_json.description}
 backgroundImage={featuredImage || "https://cdn.pixabay.com/photo/2020/09/19/10/54/jellyfishes-5584171_960_720.jpg"}
     >
     <section class="relative w-full min-h-screen text-white overflow-hidden py-16">
-        <div class="container mx-auto px-4 py-12 relative z-10">
-    
-            
+        <div class="container mx-auto px-4 py-12 relative z-10">         
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
                 {
                     posts.map((post: WordPressPost) => {
@@ -36,8 +34,7 @@ backgroundImage={featuredImage || "https://cdn.pixabay.com/photo/2020/09/19/10/5
                         const imageAlt = featuredImage ? featuredImage.alt_text || post.title.rendered : '';
                        
                         return (
-                            <div class="group relative h-96 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-                                {/* Contenedor con proporción vertical */}
+                            <div class="group relative h-96 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">                    
                                 <div class="absolute inset-0">
                                     {imageUrl ? (
                                         <img
@@ -52,12 +49,12 @@ backgroundImage={featuredImage || "https://cdn.pixabay.com/photo/2020/09/19/10/5
                                     )}
                                 </div>
                                
-                                {/* Overlay con título que aparece en hover */}
+                          
                                 <div class="absolute inset-0 flex flex-col justify-end transform transition-all duration-300">
-                                    {/* Gradiente para legibilidad del título - siempre presente pero más intenso en hover */}
+                                   
                                     <div class="bg-gradient-to-t from-black/80 via-black/40 to-transparent h-full w-full opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
                                    
-                                    {/* Título */}
+                              
                                     <div class="absolute bottom-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 w-full">
                                         <h2
                                             class="text-xl md:text-2xl font-bold text-white mb-4"
