@@ -1,0 +1,21 @@
+---
+import Presentacion from '../components/Presentacion.astro';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import SectionCard from '../components/SectionCard.astro'
+import SectionText from '../components/SectionText.astro';
+import CardVertical from '../components/CardVertical.astro';
+---
+
+<Layout>
+	<Header />
+	<Presentacion />
+	<CardVertical 
+		titleSection="Últimas actividades"
+	/>
+	<SectionText />
+	<SectionCard 
+		titleSection="Últimas publicaciones"
+	/>
+	
+</Layout>

@@ -1,0 +1,10 @@
+---
+const res = await fetch("https://nutme.cl/wp-json/wp/v2/posts?categories=13&_embed");
+const post = await res.json();
+console.log('datos de wordpress',post);
+---
+<div class="wordpress-page">
+    <h1>hola</h1>
+    <h1 set:html={post.title.rendered} />
+    <div class="page-content" set:html={post.content.rendered} />
+</div>

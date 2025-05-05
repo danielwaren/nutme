@@ -1,0 +1,140 @@
+---
+import LayoutPage from "../../layouts/LayoutPage.astro";
+import type { WordPressPost } from "../../types/wordpress";
+// Obtener datos de la pagina
+const res = await fetch("https://nutme.cl/wp-json/wp/v2/pages/7?_embed=true");
+const posts = await res.json();
+
+const featuredImage =
+  posts._embedded && posts._embedded["wp:featuredmedia"]
+    ? posts._embedded["wp:featuredmedia"][0].source_url
+    : null;
+
+// Obtener datos de categoría 14 (primera a mostrar)
+const respuestaCat14 = await fetch("https://nutme.cl/wp-json/wp/v2/posts?categories=14&_embed&per_page=100");
+const postalesCat14 = await respuestaCat14.json();
+
+// Obtener nombre de la categoría 14
+const resCat14 = await fetch("https://nutme.cl/wp-json/wp/v2/categories/14");
+const categoria14 = await resCat14.json();
+
+// Obtener datos de categoría 3 (segunda a mostrar)
+const respuestaCat3 = await fetch("https://nutme.cl/wp-json/wp/v2/posts?categories=3&_embed&per_page=100");
+const postalesCat3 = await respuestaCat3.json();
+
+// Obtener nombre de la categoría 3
+const resCat3 = await fetch("https://nutme.cl/wp-json/wp/v2/categories/3");
+const categoria3 = await resCat3.json();
+---
+<LayoutPage 
+title={posts.title.rendered}
+subtitle={posts.yoast_head_json.description}
+backgroundImage={featuredImage || "https://cdn.pixabay.com/photo/2020/09/19/10/54/jellyfishes-5584171_960_720.jpg"}
+> 
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col justify-center items-center">
+    <!-- Encabezado de la página -->
+    <div class="mb-10 text-center">
+      <h1 class="text-4xl font-bold text-gray-700">Area de estudio</h1>
+    </div>
+    <div class="text-2xl w-[80%]" set:html={posts.content.rendered} />
+    
+    {/* SECCIÓN 1: Categoría 14 primero */}
+    <div class="w-full mt-12 mb-16">
+      <h2 class="text-3xl font-bold text-gray-600 mb-8 text-center">{categoria14.name.charAt(0).toUpperCase() + categoria14.name.slice(1)}</h2>
+      <div class="flex flex-wrap justify-center gap-6 w-full">
+        {postalesCat14.map((postal: WordPressPost) => {
+          // Extraer datos de imágenes destacadas para categoría 14
+          const featuredImage =
+            postal._embedded && postal._embedded["wp:featuredmedia"]
+              ? postal._embedded["wp:featuredmedia"][0].source_url
+              : null;
+            
+          return (
+            <div class="group relative h-96 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+              <div class="absolute inset-0">
+                  {featuredImage ? (
+                      <img
+                          src={featuredImage}
+                          alt='img-post'
+                          class="w-full h-full object-cover"
+                      />
+                  ) : (
+                      <div class="w-full h-full bg-gradient-to-b from-gray-700 to-gray-900 flex items-center justify-center text-4xl">
+                          No image
+                      </div>
+                  )}
+              </div>
+            
+              <div class="absolute inset-0 flex flex-col justify-end transform transition-all duration-300">
+                  <div class="bg-gradient-to-t from-black/80 via-black/40 to-transparent h-full w-full opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
+                  <div class="absolute bottom-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 w-full">
+                      <h2
+                          class="text-xl md:text-2xl font-bold text-white mb-4"
+                          set:html={postal.title.rendered}
+                      />
+                      <a
+                          href={`/single/${postal.slug}`}
+                          class="inline-block px-4 py-2 bg-amber-500 text-white rounded-md hover:bg-amber-600 transition-colors duration-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          Leer más
+                      </a>
+                  </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    {/* SECCIÓN 2: Categoría 3 después */}
+    <div class="w-full mt-12">
+      <h2 class="text-3xl font-bold text-gray-600 mb-8 text-center">{categoria3.name.charAt(0).toUpperCase() + categoria3.name.slice(1)}</h2>
+      <div class="flex flex-wrap justify-center gap-6 w-full">
+        {postalesCat3.map((postal: WordPressPost) => {
+          // Extraer datos de imágenes destacadas para categoría 3
+          const featuredImage =
+            postal._embedded && postal._embedded["wp:featuredmedia"]
+              ? postal._embedded["wp:featuredmedia"][0].source_url
+              : null;
+            
+          return (
+            <div class="group relative h-96 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+              {/* Contenedor con proporción vertical */}
+              <div class="absolute inset-0">
+                  {featuredImage ? (
+                      <img
+                          src={featuredImage}
+                          alt='img-post'
+                          class="w-full h-full object-cover"
+                      />
+                  ) : (
+                      <div class="w-full h-full bg-gradient-to-b from-gray-700 to-gray-900 flex items-center justify-center text-4xl">
+                          No image
+                      </div>
+                  )}
+              </div>
+            
+              <div class="absolute inset-0 flex flex-col justify-end transform transition-all duration-300">
+                  <div class="bg-gradient-to-t from-black/80 via-black/40 to-transparent h-full w-full opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
+                  <div class="absolute bottom-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 w-full">
+                      <h2
+                          class="text-xl md:text-2xl font-bold text-white mb-4"
+                          set:html={postal.title.rendered}
+                      />
+                      <a
+                          href={`/single/${postal.slug}`}
+                          class="inline-block px-4 py-2 bg-amber-500 text-white rounded-md hover:bg-amber-600 transition-colors duration-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          Leer más
+                      </a>
+                  </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div class="bg-gray-100 text-3xl m-8 p-8 text-center rounded-xl">
+        <p>“NUTME comprende una investigación sin precedentes, y por eso, en su mismo centro, como motor de toda investigación, se encuentra lo más puro de la esencia científica y humana: la curiosidad, ir más allá de los límites y conocer lo desconocido.”
+        </p>
+      </div>
+    </div>
+  </div>
+</LayoutPage>

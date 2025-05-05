@@ -1,0 +1,21 @@
+---
+  import SliderPresentacion from './SliderPresentacion.astro';
+---
+<div class="w-full flex flex-col md:flex-row min-h-0">
+    <!-- Sección de texto - En móviles ocupa todo el ancho, en pantallas medianas ocupa la mitad -->
+    <div class="w-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-10 lg:p-12 text-gray-700">
+        <h1 class="text-2xl md:text-3xl lg:text-4xl mb-4 md:mb-6 font-bold text-center md:text-left w-full">¿Qué organismos piensas que existen a 100 metros de profundidad?</h1>
+        <p class="text-base md:text-lg lg:text-xl text-center md:text-left w-full">La luminosidad es escasa; y la presión, peligrosa para un humano. ¿Cómo se relacionan estos
+            ecosistemas con nosotros? ¿Y cómo podemos conservarlos? Síguenos en este inédito viaje de exploración
+            por profundidades desconocidas de Chile y maravíllate con la biodiversidad de los arrecifes mesofóticos
+            templados.
+        </p>
+    </div>
+   
+    <!-- Sección del slider - En móviles ocupa todo el ancho, en pantallas medianas ocupa la mitad -->
+    <div class="w-full md:w-1/2 flex flex-col justify-center items-center p-4 md:p-8 text-gray-700 mt-4 md:mt-0">
+        <div class="w-full aspect-video md:aspect-auto md:h-full flex justify-center items-center">
+            <SliderPresentacion />
+        </div>
+    </div>
+</div>

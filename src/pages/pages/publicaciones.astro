@@ -1,0 +1,108 @@
+---
+import LayoutPage from "../../layouts/LayoutPage.astro";
+import type { WordPressPost } from "../../types/wordpress";
+// Obtener datos de la API de WordPress
+const respuesta = await fetch("https://nutme.cl/wp-json/wp/v2/pages/13?_embed=true");
+const page = await respuesta.json();
+
+const featuredImage =
+  page._embedded && page._embedded["wp:featuredmedia"]
+    ? page._embedded["wp:featuredmedia"][0].source_url
+    : null;
+    
+const res = await fetch("https://nutme.cl/wp-json/wp/v2/posts?categories=13&_embed&per_page=100");
+const posts = await res.json();
+
+
+---
+<LayoutPage 
+title={page.title.rendered}
+subtitle={page.yoast_head_json.description}
+backgroundImage={featuredImage || "https://cdn.pixabay.com/photo/2020/09/19/10/54/jellyfishes-5584171_960_720.jpg"}
+    >
+    <section class="relative w-full min-h-screen text-white overflow-hidden py-16">
+        <div class="container mx-auto px-4 py-12 relative z-10">
+    
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
+                {
+                    posts.map((post: WordPressPost) => {
+                        const featuredImage = post._embedded &&
+                                          post._embedded['wp:featuredmedia'] &&
+                                          post._embedded['wp:featuredmedia'][0];
+                       
+                        // Obtener la URL de la imagen
+                        const imageUrl = featuredImage ? featuredImage.source_url : '';
+                        const imageAlt = featuredImage ? featuredImage.alt_text || post.title.rendered : '';
+                       
+                        return (
+                            <div class="group relative h-96 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                                {/* Contenedor con proporción vertical */}
+                                <div class="absolute inset-0">
+                                    {imageUrl ? (
+                                        <img
+                                            src={imageUrl}
+                                            alt={imageAlt}
+                                            class="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <div class="w-full h-full bg-gradient-to-b from-gray-700 to-gray-900 flex items-center justify-center text-4xl">
+                                            No image
+                                        </div>
+                                    )}
+                                </div>
+                               
+                                {/* Overlay con título que aparece en hover */}
+                                <div class="absolute inset-0 flex flex-col justify-end transform transition-all duration-300">
+                                    {/* Gradiente para legibilidad del título - siempre presente pero más intenso en hover */}
+                                    <div class="bg-gradient-to-t from-black/80 via-black/40 to-transparent h-full w-full opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
+                                   
+                                    {/* Título */}
+                                    <div class="absolute bottom-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 w-full">
+                                        <h2
+                                            class="text-xl md:text-2xl font-bold text-white mb-4"
+                                            set:html={post.title.rendered}
+                                        />
+                                        <a
+                                            href={`/single/${post.slug}`}
+                                            class="inline-block px-4 py-2 bg-amber-500 text-white rounded-md hover:bg-amber-600 transition-colors duration-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            Leer más
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })
+                }
+            </div>
+        </div>
+    </section>
+</LayoutPage>
+
+<style>
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    .animate-fadeIn {
+        animation: fadeIn 1s ease-in forwards;
+    }
+
+    /* Para limitar la cantidad de líneas de texto en el contenido */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+   
+    [set\:html] p {
+        margin-bottom: 0.5rem;
+    }
+   
+    [set\:html] img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>

@@ -1,0 +1,163 @@
+---
+import "swiper/css/bundle";
+
+const slides = [
+  {
+    imgSrc: "http://nutme.cl/wp-content/uploads/2021/05/2_terreno2-e1651100258745.jpg",
+    author: "Alejandro"
+  },
+  {
+    imgSrc: "http://nutme.cl/wp-content/uploads/2022/04/ALEseptALGeditada_5-scaled.jpg",
+    author: "Ana Navarro"
+  },
+  {
+    imgSrc: "http://nutme.cl/wp-content/uploads/2022/04/ALEseptALGeditada_3-scaled.jpg",
+    author: "Alejandro"
+  },
+  {
+    imgSrc: "http://nutme.cl/wp-content/uploads/2021/05/unnamed-11.jpg",
+    author: "Alejandro"
+  }
+];
+---
+
+<!-- Slider main container -->
+<div class="swiper swiper-scale-effect">
+  <!-- Swiper -->
+  <div class="swiper-container">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      {slides.map((slide) => (
+        <div class="swiper-slide">
+          <div class="slide-01">
+            <div class="author-name">{slide.author}</div>
+            <div class="image-container">
+              <img src={slide.imgSrc} alt={slide.author} />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <!-- Add pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add navigation arrows -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</div>
+
+<style>
+  .swiper-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    height: 450px; /* Altura fija del slider */
+    box-sizing: border-box;
+  }
+  
+  .swiper-slide {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .slide-01 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 15px;
+  }
+  
+  .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantiene la proporción y cubre todo el contenedor */
+    border-radius: 15px;
+  }
+  
+  .author-name {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    z-index: 10;
+  }
+  
+  /* Estilos personalizados para la paginación */
+  .swiper-pagination {
+    bottom: 15px !important;
+  }
+  
+  .swiper-pagination-bullet {
+    width: 12px !important;
+    height: 12px !important;
+    margin: 0 6px !important;
+    opacity: 0.7 !important;
+    background: #fff;
+    transition: all 0.3s ease;
+  }
+  
+  .swiper-pagination-bullet-active {
+    width: 30px !important;
+    border-radius: 6px !important;
+    background: #fff !important;
+    opacity: 1 !important;
+  }
+  
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #fff;
+  }
+</style>
+
+<script>
+  import Swiper from 'swiper/bundle';
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    var mySwiper = new Swiper('.swiper-container', {
+      direction: 'horizontal',
+      loop: true,
+      centeredSlides: true,
+     
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        dynamicBullets: false, // Desactivado para permitir estilo personalizado
+      },
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      // Autoplay
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      // Use slide or fade transition effect
+      speed: 2000,
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true,
+      },
+    });
+  });
+</script>

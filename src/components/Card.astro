@@ -1,0 +1,44 @@
+--- 
+    const {titleCard, descriptionCard} = Astro.props;
+---
+
+<div class="backdrop-blur-lg rounded-xl overflow-hidden shadow-xl">
+  <div class="relative h-48 overflow-hidden">
+    <img
+      src="https://cdn.pixabay.com/photo/2022/08/02/04/11/city-7359472_1280.jpg"
+      alt="Imagen de noticia 1"
+      class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+    />
+    <div class="absolute top-0 right-0 bg-blue-500 text-white px-3 py-1 text-sm font-medium">
+      TECNOLOGÍA
+    </div>
+  </div>
+  <div class="p-6">
+    <h3 class="text-xl font-bold mb-3 text-gray-500">
+        {titleCard}
+    </h3>
+    <p class="text-gray-500 mb-4">
+      {descriptionCard}
+    </p>
+    <a href="#" class="inline-flex items-center text-blue-300 hover:text-blue-100 transition-colors">
+      Leer más
+    </a>
+  </div>
+</div>
+
+<style>
+ 
+    
+    /* Estilos para scroll suave */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Media queries adicionales para mayor responsividad */
+    @media (max-width: 640px) {
+      .container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+    }
+  </style>

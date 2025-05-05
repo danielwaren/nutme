@@ -1,0 +1,51 @@
+---
+import LayoutPage from "../../layouts/LayoutPage.astro";
+// Obtener datos de la API de WordPress
+const res = await fetch("https://nutme.cl/wp-json/wp/v2/pages/11?_embed=true");
+const posts = await res.json();
+// Extraer datos de imágenes destacadas si existen
+const featuredImage =
+  posts._embedded && posts._embedded["wp:featuredmedia"]
+    ? posts._embedded["wp:featuredmedia"][0].source_url
+    : null;
+---
+
+<LayoutPage 
+  title={posts.title.rendered}
+  subtitle={posts.yoast_head_json.description}
+  backgroundImage={featuredImage || "https://cdn.pixabay.com/photo/2020/09/19/10/54/jellyfishes-5584171_960_720.jpg"}
+  >
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col justify-center items-center">
+    <!-- Encabezado de la página -->
+    <div class="mb-10 text-center">
+      <h1 class="text-4xl font-bold text-gray-600">Actividades</h1>
+    </div>
+    <div class="text-2xl w-4/5 content-wp" set:html={posts.content.rendered} />
+  </div>
+</LayoutPage>
+
+<style is:global>
+  /* Usando una clase específica para mayor control */
+  .content-wp p {
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Si necesitas más estilos específicos */
+  .content-wp h2 {
+    color: #4b5563;
+    margin-top: 2rem;
+    font-size: 2.5rem;
+  }
+  
+  .content-wp img {
+    border: 1px solid #333;
+    border-radius: 0.75rem;
+    margin: 1.5rem 0;
+  }
+  
+  .content-wp ul, .content-wp ol {
+    padding-left: 2rem;
+    margin: 1rem 0;
+  }
+</style>

@@ -1,0 +1,100 @@
+---
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  backgroundImage?: string;
+  useGradient?: boolean;
+  gradientColors?: {
+    from: string;
+    via?: string;
+    to: string;
+  };
+}
+
+const {
+  title = "Exploración y Ciencia",
+  subtitle = "Descubriendo nuevos horizontes",
+  backgroundImage = "https://cdn.pixabay.com/photo/2025/03/06/01/39/desert-9449657_960_720.jpg",
+  useGradient = true,
+  gradientColors = {
+    from: "blue-800",
+    via: "indigo-700",
+    to: "purple-900",
+  },
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="logo-nutme.png" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <title>NUTME</title>
+  </head>
+  <body>
+    <Nav />
+    <div class="relative w-full">
+      <div
+        class={`w-full h-64 md:h-80 overflow-hidden ${useGradient ? `bg-gradient-to-r from-${gradientColors.from} ${gradientColors.via ? `via-${gradientColors.via}` : ""} to-${gradientColors.to}` : ""}`}
+        style={backgroundImage
+          ? `background-image: url(${backgroundImage}); background-size: cover; background-position: center;`
+          : ""}
+      >
+        <!-- Overlay para mejorar legibilidad del texto -->
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+
+        <!-- Contenido del header -->
+        <div
+          class="container mx-auto px-4 h-full flex flex-col justify-center relative z-10"
+        >
+          <div class="max-w-3xl">
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-2">
+              {title}
+            </h1>
+            {
+              subtitle && (
+                <p class="text-xl text-gray-200 mt-2 max-w-2xl">{subtitle}</p>
+              )
+            }
+
+            <!-- Elemento decorativo -->
+            <div class="w-20 h-1 bg-yellow-500 mt-4"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Breadcrumbs (opcional) -->
+      <div class="bg-gray-100 border-b border-gray-200">
+        <div class="container mx-auto px-4 py-2">
+          <nav class="text-sm text-gray-600">
+            <a href="/" class="hover:text-blue-700">Inicio</a>
+            <span class="mx-2">›</span>
+            <span class="font-medium text-gray-800">{title}</span>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aquí iría el contenido de la página -->
+    <slot />
+    <Footer />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+    ></script>
+  </body>
+</html>

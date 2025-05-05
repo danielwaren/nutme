@@ -1,0 +1,35 @@
+---
+// VideoHeader.astro con Tailwind CSS
+// Puedes ajustar estos valores según tus necesidades
+const { 
+  videoSrc = "https://nutme.cl/wp-content/uploads/2022/05/20220427_Banner_web_corto.mp4",
+  posterSrc = "", 
+  overlayOpacity = "bg-black/30", // Clase de Tailwind para la opacidad (bg-black/30 = 30% opacidad)
+  muted = true,
+  autoplay = true,
+  loop = true
+} = Astro.props;
+---
+
+<div class="relative w-full h-screen overflow-hidden">
+  <!-- Contenedor del video -->
+  <div class="absolute inset-0">
+    <video 
+      class="absolute min-w-full min-h-full w-auto h-auto object-cover top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      autoplay={autoplay} 
+      loop={loop} 
+      muted={muted}
+      playsinline
+      poster={posterSrc}>
+      <source src={videoSrc} type="video/mp4">
+      Tu navegador no soporta videos HTML5.
+    </video>
+    <!-- Capa de superposición -->
+    <div class={`absolute inset-0 ${overlayOpacity}`}></div>
+  </div>
+  
+  <!-- Contenido que irá sobre el video -->
+  <div class="relative z-10 w-full h-full flex flex-col justify-center items-center text-white p-4">
+    <slot />
+  </div>
+</div>

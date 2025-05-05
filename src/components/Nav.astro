@@ -1,0 +1,108 @@
+---
+// Navbar.astro
+---
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Variables
+      const navbar = document.getElementById('navbar');
+      const menuButton = document.getElementById('menu-button');
+      const menuItems = document.getElementById('menu-items');
+      
+      if (!navbar || !menuButton || !menuItems) return;
+      
+      // Cambiar estilo del navbar al hacer scroll
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-md', 'py-3');
+          navbar.classList.remove('py-5');
+        } else {
+          navbar.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-md', 'py-3');
+          navbar.classList.add('py-5');
+        }
+      });
+      
+      // Manejar menú móvil
+      menuButton.addEventListener('click', () => {
+        menuItems.classList.toggle('translate-x-full');
+        menuItems.classList.toggle('translate-x-0');
+        
+        // Alternar entre icono hamburguesa y X
+        const spans = menuButton.querySelectorAll('span');
+        spans.forEach(span => span.classList.toggle('open'));
+      });
+    });
+  </script>
+  
+  <nav id="navbar" class="fixed top-0 left-0 w-full py-5 transition-all duration-300 z-50">
+    <div class="container mx-auto px-4 md:px-6 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a href="/" class="transition-transform duration-300 hover:scale-105">
+          <img src="../../public/logo-nutme.png" alt="Logo" class="h-10 w-auto" />
+        </a>
+      </div>
+      
+      <!-- Menú hamburguesa (visible en móvil) -->
+      <button id="menu-button" class="lg:hidden flex flex-col justify-center items-center w-8 h-8 relative z-50" aria-label="Menu">
+        <span class="w-6 h-0.5 bg-white mb-1.5 transition-all duration-300 rounded-full"></span>
+        <span class="w-6 h-0.5 bg-white mb-1.5 transition-all duration-300 rounded-full"></span>
+        <span class="w-6 h-0.5 bg-white transition-all duration-300 rounded-full"></span>
+      </button>
+      
+      <!-- Menú de navegación -->
+      <ul id="menu-items" class="fixed lg:relative top-0 right-0 h-screen lg:h-auto w-4/5 lg:w-auto bg-black/90 lg:bg-transparent backdrop-blur-lg lg:backdrop-blur-none flex flex-col lg:flex-row justify-center lg:justify-end items-center space-y-8 lg:space-y-0 lg:space-x-8 translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+        <li>
+          <a href="/" class="text-white lg:text-white text-lg lg:text-base font-medium hover:text-indigo-400 transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-500 after:transition-all after:duration-300 hover:after:w-full">Inicio</a>
+        </li>
+        <li>
+          <a href="/pages/conocenos" class="text-white lg:text-white text-lg lg:text-base font-medium hover:text-indigo-400 transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-500 after:transition-all after:duration-300 hover:after:w-full">Conocenos</a>
+        </li>
+        <li>
+          <a href="/pages/exploracion" class="text-white lg:text-white text-lg lg:text-base font-medium hover:text-indigo-400 transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-500 after:transition-all after:duration-300 hover:after:w-full">Exploracion y ciencia</a>
+        </li>
+        <li>
+          <a href="/pages/divulgacion" class="text-white lg:text-white text-lg lg:text-base font-medium hover:text-indigo-400 transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-500 after:transition-all after:duration-300 hover:after:w-full">Divulgación</a>
+        </li>
+        <li>
+            <a href="/pages/publicaciones" class="text-white lg:text-white text-lg lg:text-base font-medium hover:text-indigo-400 transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-500 after:transition-all after:duration-300 hover:after:w-full">Publicaciones</a>
+          </li>
+          <li>
+            <a href="/pages/noticias" class="text-white lg:text-white text-lg lg:text-base font-medium hover:text-indigo-400 transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-indigo-500 after:transition-all after:duration-300 hover:after:w-full">Noticias</a>
+          </li>
+        <li>
+          <a href="/pages/contacto" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/30 hover:-translate-y-1">Contacto</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  <style>
+    /* Estilos para el menú hamburguesa cuando está abierto */
+    #menu-button span.open:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    
+    #menu-button span.open:nth-child(2) {
+      opacity: 0;
+    }
+    
+    #menu-button span.open:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+    
+    @media (min-width: 1024px) {
+      #navbar.bg-white\/90 a:not(.bg-indigo-600) {
+        @apply text-gray-800;
+      }
+      
+      #navbar:not(.bg-white\/90) a:not(.bg-indigo-600) {
+        @apply text-white;
+      }
+    }
+    
+    /* Aplicar colores según el estado del scroll */
+    #navbar.bg-white\/90 #menu-button span {
+      @apply bg-gray-800;
+    }
+  </style>
