@@ -49,7 +49,7 @@ const shareUrls = {
 }
 ---
 
-<Layout>
+<Layout navDarkText={true}>
     <article class="pt-[12vh] sm:pt-[15vh] max-w-3xl mx-auto px-4 sm:px-6 mb-8 sm:mb-16">
         {featuredImage && (
           <div class="mb-6 sm:mb-10 overflow-hidden rounded-lg shadow-md sm:shadow-xl hover:shadow-lg sm:hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group">
@@ -64,8 +64,9 @@ const shareUrls = {
         
         <!-- Cabecera del Post -->
         <header class="mb-6 sm:mb-8 text-center">
-          <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3 sm:mb-5 leading-tight" set:html={post.title.rendered}></h1>
-          
+          <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-950 mb-3 sm:mb-5 leading-tight" set:html={post.title.rendered}></h1>
+          <!-- Línea separadora -->
+          <div class="w-full h-px bg-gray-200 my-3 sm:my-4"></div>
           <div class="flex flex-col sm:flex-row items-center mb-4 text-gray-700 p-2 sm:p-3 rounded-lg">
             <div class="flex flex-col sm:flex-row justify-between w-full items-center">
               <div class="mb-2 sm:mb-0">
@@ -83,8 +84,9 @@ const shareUrls = {
           <div class="w-full h-px bg-gray-200 my-3 sm:my-4"></div>
         </header>
 
-        <div class="prose prose-sm sm:prose-base md:prose-lg max-w-none text-gray-700 font-sans leading-relaxed">
-          <Fragment set:html={post.content.rendered} />
+        <!-- Contenido del post con estilos personalizados -->
+        <div class="prose prose-sm sm:prose-base md:prose-lg max-w-none font-sans leading-relaxed">
+          <div class="text-blue-900 space-y-2 text-xl" set:html={post.content.rendered} />
         </div>
         
         <!-- Separador -->
@@ -126,102 +128,3 @@ const shareUrls = {
         </div>
       </article>
 </Layout>
-
-<style>
-  /* Estilos adicionales para el contenido del blog - complementa a Tailwind */
-  .prose h2 {
-    @apply text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4 text-gray-800;
-  }
-  
-  .prose h3 {
-    @apply text-lg sm:text-xl font-semibold mt-5 sm:mt-6 mb-2 sm:mb-3 text-gray-800;
-  }
-  
-  .prose p {
-    @apply mb-4 sm:mb-6 text-gray-700 leading-relaxed text-sm sm:text-base;
-  }
-  
-  .prose a {
-    @apply text-blue-600 underline underline-offset-2 hover:text-blue-800 transition-colors;
-  }
-  
-  .prose img {
-    @apply rounded-lg shadow-md my-4 sm:my-6 w-full h-auto;
-  }
-  
-  .prose ul, .prose ol {
-    @apply ml-4 sm:ml-6 mb-4 sm:mb-6 text-sm sm:text-base;
-  }
-  
-  .prose li {
-    @apply mb-1 sm:mb-2;
-  }
-  
-  .prose blockquote {
-    @apply border-l-4 border-blue-500 pl-3 sm:pl-4 italic text-gray-600 my-4 sm:my-6 text-sm sm:text-base;
-  }
-  
-  /* Ajustes para pantallas pequeñas */
-  @media (max-width: 480px) {
-    .prose {
-      @apply text-sm;
-    }
-    
-    .prose h2 {
-      @apply text-lg;
-    }
-    
-    .prose h3 {
-      @apply text-base;
-    }
-    
-    .prose p {
-      @apply mb-3;
-    }
-    
-    article {
-      @apply pt-[10vh];
-    }
-  }
-  
-  /* Ajustes para asegurar legibilidad en todo el contenido renderizado desde WordPress */
-  .prose iframe, .prose video {
-    @apply w-full my-4 sm:my-6 rounded-lg shadow-md;
-  }
-  
-  .prose table {
-    @apply w-full my-4 sm:my-6 border-collapse text-sm sm:text-base;
-  }
-  
-  .prose th, .prose td {
-    @apply border border-gray-300 p-2 sm:p-3;
-  }
-  
-  .prose th {
-    @apply bg-gray-100;
-  }
-  
-  /* Ajustes para contenido incrustado */
-  .prose [class*="wp-block"] {
-    @apply my-4 sm:my-6 max-w-full overflow-hidden;
-  }
-  
-  /* Mejoras para la visualización en modo oscuro (opcional) */
-  @media (prefers-color-scheme: dark) {
-    .prose {
-      @apply text-gray-300;
-    }
-    
-    .prose h2, .prose h3 {
-      @apply text-gray-200;
-    }
-    
-    .prose a {
-      @apply text-blue-400 hover:text-blue-300;
-    }
-    
-    .prose blockquote {
-      @apply text-gray-400 border-blue-400;
-    }
-  }
-</style>

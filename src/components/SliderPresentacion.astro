@@ -4,19 +4,19 @@ import "swiper/css/bundle";
 const slides = [
   {
     imgSrc: "http://nutme.cl/wp-content/uploads/2021/05/2_terreno2-e1651100258745.jpg",
-    author: "Alejandro"
+    author: "Alejandro Pérez Matus"
   },
   {
     imgSrc: "http://nutme.cl/wp-content/uploads/2022/04/ALEseptALGeditada_5-scaled.jpg",
-    author: "Ana Navarro"
+    author: "Alejandro Pérez Matus"
   },
   {
     imgSrc: "http://nutme.cl/wp-content/uploads/2022/04/ALEseptALGeditada_3-scaled.jpg",
-    author: "Alejandro"
+    author: "Alejandro Pérez Matus"
   },
   {
     imgSrc: "http://nutme.cl/wp-content/uploads/2021/05/unnamed-11.jpg",
-    author: "Alejandro"
+    author: "Alejandro Pérez Matus"
   }
 ];
 ---
@@ -31,9 +31,12 @@ const slides = [
       {slides.map((slide) => (
         <div class="swiper-slide">
           <div class="slide-01">
-            <div class="author-name">{slide.author}</div>
             <div class="image-container">
               <img src={slide.imgSrc} alt={slide.author} />
+              <div class="author-name">
+                <span class="photo-by">Foto por</span>
+                <span class="name">{slide.author}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -52,7 +55,7 @@ const slides = [
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    height: 450px; /* Altura fija del slider */
+    height: 450px; /* Manteniendo el mismo tamaño */
     box-sizing: border-box;
   }
   
@@ -69,6 +72,7 @@ const slides = [
     height: 100%;
     border-radius: 15px;
     overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra sutil añadida */
   }
   
   .image-container {
@@ -79,28 +83,46 @@ const slides = [
     justify-content: center;
     overflow: hidden;
     border-radius: 15px;
+    position: relative;
   }
   
   .swiper-slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Mantiene la proporción y cubre todo el contenedor */
+    object-fit: cover;
     border-radius: 15px;
   }
   
   .author-name {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
     z-index: 10;
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.3;
   }
   
-  /* Estilos personalizados para la paginación */
+  .photo-by {
+    font-size: 10px;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .name {
+    font-weight: 500;
+    font-size: 13px;
+  }
+  
+  /* Estilos personalizados para la paginación (mantenidos igual) */
   .swiper-pagination {
     bottom: 15px !important;
   }
