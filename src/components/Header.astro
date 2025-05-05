@@ -77,35 +77,3 @@ import Menu from "./MenuBar.astro"
         </div>
     </div>
 </header>
-
-<script>
-    import anime from 'animejs';
-    
-    // Verificar si estamos en dispositivo móvil
-    const isMobile = window.innerWidth < 768;
-    
-    // Ajustar la animación según el dispositivo
-    anime({
-        targets: '.logo-redes',
-        y: isMobile 
-            ? [{ value: '-1rem', duration: 400 }, { value: 0, duration: 600 }]
-            : [{ value: '-2rem', duration: 600 }, { value: 0, duration: 800, delay: 100 }],
-        rotate: {
-            value: isMobile ? '-0.5turn' : '-1turn',
-            duration: isMobile ? 800 : 1200,
-            delay: 0
-        },
-        delay: (_, i) => i * (isMobile ? 30 : 50),
-        easing: 'easeInOutCirc',
-        loop: true,
-        loopDelay: isMobile ? 800 : 1000
-    });
-    
-    // Event listener para actualizar animación en resize
-    window.addEventListener('resize', () => {
-        const newIsMobile = window.innerWidth < 768;
-        if (newIsMobile !== isMobile) {
-            location.reload(); // Recargar para actualizar animaciones
-        }
-    });
-</script>
